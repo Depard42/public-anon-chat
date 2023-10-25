@@ -1,0 +1,53 @@
+body {
+    background: rgb(0, 0, 0);
+    padding: 5px 10px 30px 10px;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.line{
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 7px;
+}
+
+.text-style{
+    position: relative;
+    color: white;
+    font-size: 16px;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 0;
+}
+.private{
+    color:#b23a48;
+    
+}
+fff{
+    background-color: #4a4e69;
+    color: #f2e9e4;
+}
+.user-button {
+    background-color: black;
+    color: white;
+    border: 1px solid yellow;
+    text-decoration: none;
+    cursor: pointer;
+    min-width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    border-radius: 7px;
+    font-size: 12px;
+    padding: 5px 0px;
+    text-align: center;
+    margin-right: 7px;
+}
+
+#send_mes {
+    position: relative;
+    width: 90%;
+    padding: 5px 5px;
+    margin: 0;
+}

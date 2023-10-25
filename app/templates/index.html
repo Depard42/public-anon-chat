@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="chat">
+	<div id="messages">
+		<div class="line">
+			<div class="user-button">HOST</div>
+			<p class="text-style">Запущен {{date}}</p>
+		</div>
+		{% for i in range(L) %}
+            
+                <div class="line">
+                    <div class="user-button">{{mes[i][0]}}</div>
+                    <p class="text-style">{{mes[i][1]}}</p>
+                </div>
+            
+		{% endfor %}
+	</div>
+	<input type="text" id="send_mes" placeholder="Type message and press Enter" size="30">
+</div>   
+<script type="text/python">
+	from browser import document, html, window, timer
+	from browser.html import DIV
+
+	socketio = window.io()
+	#io('https://0.0.0.0:8000')
+	window.scroll(0 , document.body.scrollHeight)
+	
+
+	def keypress(ev):
+		if ev.key == "Enter":
+			chat_input = document["send_mes"]
+			if chat_input.value == "":
+				chat_input.focus()
+			else:
+				if '==>' in chat_input.value:
+				    socketio.emit('send_private', {'mes': chat_input.value})
+				else:
+				    socketio.emit('send_mes', {'mes': chat_input.value})
+				chat_input.value = ""
+
+	def take_mes(data):
+		mes_block = document["messages"]
+		if data['private'] == 'False':
+		    mes_block <= DIV('<div class="user-button" >'+data['id']+'</div><p class="text-style">'+data['mes']+'</p>',Class="line")
+		else:
+		    mes_block <= DIV('<div class="user-button">'+data['id']+'</div><p class="text-style private">'+data['mes']+'</p>',Class="line")
+		window.scroll(0 , document.body.scrollHeight)
+	
+	def click(ev):
+		this = ev.target
+		if 'class' in this.attrs.keys() and this.attrs['class'] == "user-button":
+			chat_input = document["send_mes"]
+			chat_input.value = this.html + "==>"
+			window.scroll(0 , document.body.scrollHeight)
+			chat_input.focus()
+
+	
+	document.select('body')[0].bind("keypress", keypress)
+	document.select('body')[0].bind('click', click)
+	socketio.on("take_mes", take_mes)
+</script>
+
+{% endblock %}
