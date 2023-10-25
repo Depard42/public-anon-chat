@@ -44,8 +44,8 @@ class MyNamespace(object):
         socketio.emit('take_mes', {'id':session['sid'], 'mes': "("+to+'): '+text, 'private':'True'}, room=to)
 
 mes = []
-from pytz import timezone
-start_date = datetime.datetime.now(timezone('Europe/Moscow'))
+from zoneinfo import ZoneInfo
+start_date = datetime.datetime.now(ZoneInfo('Europe/Moscow'))
 @app.route("/", methods=["GET", "POST"])
 def func():
     return render_template("index.html", mes=mes, L=len(mes), date = start_date)
